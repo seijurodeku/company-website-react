@@ -3,9 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.17",
+    "@fortawesome/free-brands-svg-icons": "^5.8.1",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "axios": "^0.18.0",
+    "firebase": "^5.9.3",
+    "mdbreact": "^4.11.1",
+    "radium": "^0.25.1",
     "react": "^16.8.4",
+    "react-alice-carousel": "^1.13.3",
+    "react-anchor-link-smooth-scroll": "^1.0.12",
+    "react-bootstrap": "^1.0.0-beta.6",
+    "react-coverflow": "^0.2.19",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "react-flippy": "^0.1.2",
+    "react-items-carousel": "^2.3.2",
+    "react-parallax": "^2.2.0",
+    "react-responsive-carousel": "^3.1.47",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.8",
+    "react-scroll-up": "^1.3.3"
   },
   "scripts": {
     "start": "react-scripts start",

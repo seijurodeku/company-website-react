@@ -1,14 +1,840 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.body, html{
+  height: 100%;
 }
+
+.bg-grey {
+  background-color: #FAFAFA;
+  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+}
+
+.bg-brown {
+  background-color: rgb(238, 229, 227);
+  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+}
+
+.bg-img {
+  background-image: url('/images/bg.jpg');
+  background-size: cover;
+}
+
+/* Navigation */
+.App-logo {
+  padding: 0;
+  margin: 0;
+  height: 50px;
+  width:75px;
+}
+
+.navbar {
+  padding-left: 8%;
+  padding-right: 8%;
+}
+
+.nav-link,
+.nav-btn {
+  color: rgb(71, 68, 68) !important;
+  font-size: 16px;
+  margin: auto;
+  outline: 0;
+  /* font-weight: 300; */
+  font-family: "Roboto", sans-serif !important;
+}
+
+/* .nav-toggler {
+  background-color: #FF7F50 !important;
+  background: url('/public/images/toggler1.png') !important;
+} */
+
+a {
+  outline: 0 !important;
+}
+
+.nav-link:hover {
+  color: #FF7F50 !important;
+}
+
+.nav-link:focus {
+  color: #FF7F50 !important;
+  border-bottom: 3px inset #FF7F50;
+}
+
+
+/* Home Section */
+.bg {
+  /* background-image: url('/public/images/cover1.jpg'); */
+  height: auto;
+  width: 100%;
+  min-height: 100%;
+  min-width: 1024px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* opacity: 0.6; */
+}
+
+@media only screen and (max-width: 1024px) {
+  .bg {
+    left: 50%;
+    margin-left: -512px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .bg {
+    height: 61.3rem;
+  }
+}
+
+/* .box {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  background: black; 
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+} */
+
+/* @media only screen and (max-width: 600px) {
+  .box {
+    background: black; 
+    background: rgba(0, 0, 0, 0);
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+} */
+
+.banner{
+  padding-top: 1em;
+}
+
+.banner-title {
+  font-size: 5em;
+  font-weight: 400;
+  font-family: "Philosopher", sans-serif !important;
+  align-self: auto;
+  color: #FF7F50 !important;
+}
+
+.banner-subtitle {
+  font-size: 1/5em;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif !important;
+  color: #FF7F50 !important;
+}
+
+.btn-get-started {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 11px 36px;
+  border-radius: 50px;
+  transition: 0.5s;
+  margin-bottom: 30px;
+  border: 2px solid #FF7F50 !important;
+  background: #fff;
+  color: #FF7F50 !important;
+  text-decoration: none;
+}
+
+.btn-get-started:hover {
+  background: #FF7F50 !important;
+  color: #fff !important;
+  border: 2px solid #FF7F50 !important;
+}
+
+/* Fixed/sticky icon bar (vertically aligned 50% from the top of the screen) */
+.icon-bar {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+/* Style the icon bar links */
+.icon-bar a {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 25px;
+}
+
+@media only screen and (max-width: 600px) {
+  .icon-bar a {
+    font-size: 20px;
+    padding: 5px;
+  }
+}
+
+/* Style the social media icons with color, if you want */
+.icon-bar a:hover {
+  opacity: 0.7;
+}
+
+.facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+
+/* About Section */
+.section {
+  padding-top: 4em;
+  padding-bottom: 4em;
+}
+
+.title:after {
+  content:"";
+  display:block;
+  height:4px;
+  width:40px;
+  background-color: #FF7F50;
+  margin-top: 20px;
+}
+
+.text-center .title:after {
+  margin: 20px auto 0px;
+}
+
+.about-img {
+  align-content: center;
+  vertical-align: middle;
+}
+
+.about-description {
+  align-content: center;
+  vertical-align: middle;
+  margin-bottom: 2em;
+  padding-left: 1em;
+  padding: 1.5em;
+}
+
+.about-image {
+  vertical-align: middle;
+  align-content: center;
+  padding: 1.5em;
+  /* padding-top: 3em; */
+  /* margin-top: 1em; */
+  padding-bottom: 3em;
+  background-color: #fff;
+  width: 100%;
+}
+
+/* Large devices laptops and desktops */
+@media only screen and (min-width: 992px) {
+  .about-description {
+    margin-top: 3em;
+  }
+
+  .about-image {
+    width: 70%
+  }
+}
+
+/* Medium devices portrait tablets and large phones */
+@media only screen and (min-width: 600px) and (max-width: 991px) {
+  .about-image {
+    margin-top: 8em;
+  }
+}
+
+.card-txn {
+  border-top: 4px solid #FF7F50;
+  box-shadow: 5px 5px 5px #aaaaaa
+}
+
+@media only screen and (max-width: 600px) {
+  .card-txn {
+    border: none;
+    margin-top: -1em;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .card-txn {
+    height: 150px; 
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 991px) {
+  .card-txn {
+    height: 230px;
+  }
+}
+
+
+/* Streak */
+.streak {
+  text-align: center;
+}
+
+.streak-title {
+  font-size: 48px;
+  font-weight: 900;
+  color: #FF7F50;
+  font-family: Raleway;
+  padding-top: 7vh;
+}
+
+.streak-subtitle {
+  font-weight: 300;
+  font-size: 20px;
+  color: #fff;
+}
+
+@media only screen and (max-width: 600px) {
+  .streak-title {
+    padding-top: 3.5vh !important;
+    font-size: 40px;
+  }
+  .streak-subtitle {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .streak-subtitle {
+    width: 1500px;
+    margin-left: 200px;
+  }
+}
+
+
+/* Product and Services Section */
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 5px #aaaaaa;
+}
+
+.card-img {
+  height: 70px;
+  width: 70px;
+  margin: 40px;
+  margin-left: 110px;
+}
+
+.card-heading {
+  font-weight: 400;
+}
+
+.service-card-body {
+  margin-top: 20px;
+  color: white !important;
+  font-weight: 500;
+}
+
+
+
+/* Directors Section */
+.director-container {
+  margin-top: 4em;
+}
+
+.team-card {
+  width: 16rem;
+  height: 18rem;
+  /* background-color: #55ACEE; */
+  background-color: #FF7F50;
+  box-shadow: 5px 5px 5px #aaaaaa;
+}
+
+.team-img {
+  height: 150px;
+  width: 155px;
+  margin-top: -20%;
+  margin-left: 48px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .team-card {
+    height: 16rem;
+    width: 21rem;
+    margin-bottom: 3.2em;
+  }
+
+  .team-img {
+    margin-left: 85px;
+  }
+}
+
+/* Fixed/sticky icon bar (vertically aligned 50% from the top of the screen) */
+.icon-bar-1 {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 85%;
+  margin-left: 2.3em;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+/* Style the icon bar links */
+.icon-bar-1 a {
+  display: block;
+  border-radius: 50%;
+  text-align: center;
+  padding: 5px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 20px;
+  margin: 5px;
+  height: 2em;
+  width: 2em;
+}
+
+.team-name {
+  color: white !important;
+  font-weight: 500 !important;
+}
+
+.team-title {
+  color: white !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .icon-bar-1 {
+    margin-left: 5em;
+  }
+  .icon-bar-1 a {
+    font-size: 20px;
+    padding: 5px; 
+  }
+  .team-card {
+    margin-top: 2em;
+  }
+}
+
+/* Medium devices portrait tablets and large phones */
+@media only screen and (min-width: 600px) and (max-width: 991px) {
+  .team-card {
+    margin-top: 4.2em;
+    margin-left: 0.6em;
+    width: 19rem;
+  }
+  .team-img {
+    margin-left: 75px;
+  }
+
+  .icon-bar-1 {
+    margin-left: 3.8em;
+  }
+}
+
+/* Style the social media icons with color, if you want */
+.icon-bar-1 a:hover {
+  opacity: 0.7;
+}
+
+.facebook-1, .twitter-1, .linkedin-1 {
+  background: #FF7F50;
+  color: white !important;
+}
+
+
+/* Vission Section */
+.card-vision {
+  box-shadow: 15px 20px 5px #333;
+  padding: 49px 5px;
+  border: 10px solid #fff;
+  height: 230px;
+}
+
+@media only screen and (max-width: 600px) {
+  .card-vision {
+    height: 270px;
+    padding-top: 5px;
+  }
+}
+
+.vision-title, .vision-subtitle {
+  color: rgb(71, 68, 68) !important;
+}
+
+
+
+
+/* Subscribe Section */
+@media only screen and (min-width: 600px) {
+  .subscribe {
+    margin-top: 3em;
+  }
+}
+
+.subscribe-input {
+  margin-top: 5.3em;
+  height: 2.7em;
+  background-color: rgb(250, 239, 239);
+}
+
+.subscribe-button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 11px 36px;
+  border-radius: 50px;
+  transition: 0.5s;
+  margin-bottom: 30px;
+  border: 2px solid #FF7F50 !important;
+  background: #fff;
+  color: #FF7F50 !important;
+  text-decoration: none;
+  margin-top: 6.5em;
+}
+
+.subscribe-button:hover {
+  background: #FF7F50 !important;
+  color: #fff !important;
+  border: 2px solid #FF7F50 !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .subscribe-input {
+    margin-top: 3em;
+    display: block;
+    width: 20rem;
+    height: 3em;
+    margin-left: 1.8em;
+  }
+  .subscribe-button {
+    margin-top: 1em;
+    display: block;
+    width: 20rem;
+    margin-left: 2em;
+  }
+}
+
+
+/* Contact Section */
+.map {
+  font-weight: 500;
+  margin-left: 0.8em;
+  margin-top: 1.8em;
+}
+
+.map-container-6 {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+.map-container-6 iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.contact-row {
+  margin-top: 3em;
+}
+
+.contact-icon {
+  margin-bottom: 1em;
+  color: #FF7F50 !important;
+}
+
+.contact-icon:hover {
+  opacity: 0.7;
+}
+
+
+/* Foooter Section */
+.footer-section {
+  margin-top: -0em;
+  font-size: 16px;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+  letter-spacing: 0;
+}
+
+
+.company {
+  color: #FF7F50 !important;
+  font-weight: bold;
+}
+
+
+/* ADMIN SECTION */
+.login-header {
+  background-color: #ff7f50;
+  margin-top: -70px;
+  margin-bottom: 44px;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 5px 5px 3px #aaa;
+  font-family: 'Philosopher sans-serif';
+}
+
+#login{
+  margin-top: 50%;
+  margin-bottom: 69%;
+}
+
+@media only screen and (max-width: 600px){
+  #login {
+    margin-bottom: 69%;
+  }
+}
+
+@media only screen and (min-width: 992px){
+  #login {
+    margin-bottom: 51.5%;
+  }
+}
+
+
+/* Career Section */
+.bg-career {
+  background-color: powderblue;
+}
+
+.career-title {
+  font-size: 5em;
+  font-weight: 400;
+  font-family: "Philosopher", sans-serif !important;
+  align-self: auto;
+  color: #FF7F50 !important;
+}
+
+.career-bg {
+  opacity: 0.2;
+}
+
+@media only screen and (min-width: 992px) {
+  .career-card {
+    margin-bottom: 19.55em !important;
+  }
+
+  .loading {
+    margin: 3em !important;
+  }
+}
+
+.career-heading {
+  font-weight: 500;
+  color: rgb(124, 123, 123);
+  margin-bottom: 1em;
+}
+
+.padd-content {
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.post-title {
+  /* color: #007bb5; */
+  color: #FF7F50;
+}
+
+.career-card {
+  margin-top: 12em;
+  margin-bottom: 11.8em;
+  /* max-height: 100%; */
+}
+
+.about-content {
+  color: rgb(124, 123, 123);
+  padding-left: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+  .career-card {
+    margin-bottom: 2em;
+    margin-top: 2em;
+  }
+
+  .loading {
+    margin: 3em !important;
+  }
+}
+
+.margin-form {
+  margin-top: 7em;
+  margin-bottom: 8.9em;
+}
+
+@media only screen and (min-width: 992px) {
+  .margin-form {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 9.7em;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .margin-form {
+    margin-top: 5em;
+    margin-bottom: 5em;
+  }
+}
+
+.loading {
+  color: #FF7F50 !important;
+  margin: 2em;
+}
+
+
+/* Career Detail */
+.detail-card {
+  margin-top: 4em;
+  margin-bottom: 5em;
+}
+
+@media only screen and (min-width: 992px) {
+  .detail-card {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .career-card {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 14em !important;
+    height: 100%;
+  }
+}
+
+.padd-detail {
+  padding: 1.5em 2em 1em 3em;
+}
+
+.career-desc {
+  color: rgb(124, 123, 123);
+  padding-right: 2em;
+}
+
+.bullet {
+  margin-top: 1em;
+  margin-left: -1em;
+}
+
+.career-apply {
+  margin-left: 2.5em;
+}
+
+.home-icon {
+  margin-top: 95px;
+  margin-right: 20px;
+  color: #c70039;
+}
+
+@media only screen and (max-width: 600px) {
+  .home-icon {
+    margin-left: 80%;
+    margin-top: -100px;
+  }
+}
+
+@media only screen and (max-width: 600px){
+  .column {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+.input-name {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
+
+.label {
+  margin-top: 30px;
+  color: rgb(124, 123, 123);
+  font-weight: 600;
+}
+
+.compulsary {
+  color: #c70039;
+}
+
+.input-file {
+  margin-top: 30px;
+}
+
+.apply-card {
+  margin-top: 4em;
+  margin-bottom: 5em;
+}
+
+@media only screen and (min-width: 992px) {
+  .apply-card {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+.bg-brown-cp {
+  background-color: rgb(238, 229, 227);
+  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+}
+
+.loading-detail {
+  color: #FF7F50 !important;
+  margin: 47%;
+  margin-left: 46.5%;
+  margin-bottom: 49%;
+}
+
+@media only screen and (min-width: 992px) {
+  .loading-detail {
+    margin-top: 24%;
+    margin-bottom: 24%;
+  }
+}
+
+
+
