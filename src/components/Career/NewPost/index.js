@@ -19,8 +19,7 @@ class NewPost extends Component {
             location: 'Naxal, Kathmandu',
             description: '',
             requirements: '',
-            benefits: '',
-            application: []
+            benefits: ''
         }
     }
 

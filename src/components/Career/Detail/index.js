@@ -27,7 +27,7 @@ class DetailPost extends Component {
     componentDidMount() {
         API.get('/career.json')
             .then(res => {
-                // console.log(res)
+                console.log(res)
                 const fetchedPost = [];
                 for (let key in res.data) {
                     if(key == this.props.match.params.id){
