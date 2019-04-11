@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import firebase from '../../../firebase';
+import Modal from '../../Content/Modal';
 
 import {
     MDBContainer,
@@ -35,7 +36,8 @@ class Apply extends Component {
             coverLetter: '',
             photoProgress: 0,
             resumeProgress: 0,
-            loading: true
+            loading: true,
+            modal: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,9 +70,27 @@ class Apply extends Component {
     handleImageChange = (e) => {
         if (e.target.files[0]){
             const photo = e.target.files[0];
-            this.setState({photo});
+            this.setState({
+                photo
+            });
+        }
+    }
 
-            const uploadTask = firebase.storage().ref(`images/${photo.name}`).put(photo);
+    handleResumeChange = (e) => {
+        if(e.target.files[0]) {
+            const resume = e.target.files[0];
+            this.setState({
+                resume
+            });
+        }
+    }
+
+    handleImageSubmit = () => {
+        return new Promise((resolve, reject)=>{
+            const { photo } = this.state;
+            const photoID = Math.random().toString(36).substr(2, 6);
+            // const uploadTask = firebase.storage().ref(`images/${photo.name}`).put(photo);
+            const uploadTask = firebase.storage().ref(`images/${photoID}`).put(photo);
             uploadTask.on('state_changed', (snapshot) => {
                 // Progress function
                 const photoProgress = Math.round((snapshot.bytesTransferred/snapshot.totalBytes)*100);
@@ -79,22 +99,26 @@ class Apply extends Component {
             // Error function
             (error) => {
                 console.log(error);
+                reject(error);
             },
             () => {
-                firebase.storage().ref('images').child(photo.name).getDownloadURL().then(photoUrl=>{
+                firebase.storage().ref('images').child(photoID).getDownloadURL().then(photoUrl=>{
                     console.log(photoUrl);
-                    this.setState({photoUrl});
+                    this.setState({
+                        photoUrl
+                    });
+                    resolve(true);
                 })
-            })
-        }
+            })              
+        });
+        
     }
 
-    handleResumeChange = (e) => {
-        if(e.target.files[0]) {
-            const resume = e.target.files[0];
-            this.setState({resume});
-
-            const uploadTask = firebase.storage().ref(`pdfs/${resume.name}`).put(resume);
+    handleResumeSubmit = () => {
+        return new Promise((resolve, reject)=>{
+            const { resume } = this.state;
+            const resumeID = Math.random().toString(36).substr(2, 6);
+            const uploadTask = firebase.storage().ref(`pdfs/${resumeID}`).put(resume);
             uploadTask.on('state_changed', (snapshot) => {
                 // Progress function
                 const resumeProgress = Math.round((snapshot.bytesTransferred/snapshot.totalBytes)*100);
@@ -103,21 +127,25 @@ class Apply extends Component {
             // Error function
             (error) => {
                 console.log(error);
+                reject(error);
             },
             () => {
-                firebase.storage().ref('pdfs').child(resume.name).getDownloadURL().then(resumeUrl=>{
+                firebase.storage().ref('pdfs').child(resumeID).getDownloadURL().then(resumeUrl=>{
                     console.log(resumeUrl);
-                    this.setState({resumeUrl});
+                    this.setState({
+                        resumeUrl
+                    });
+                    resolve(true);
                 })
             })
-        }
+        });        
     }
 
-    handleSubmit (e) {
+    async handleSubmit (e) {
         e.preventDefault();
 
-        // this.handleImageSubmit();
-        // this.handleResumeSubmit();
+        await this.handleImageSubmit();
+        await this.handleResumeSubmit();
         
         const postRef = firebase.database().ref('application');
         postRef.push({
@@ -130,9 +158,18 @@ class Apply extends Component {
             resumeUrl: this.state.resumeUrl,
             postKey: this.props.match.params.id
         }).then((data) => {
-            console.log('data ', data)
+            console.log('data ', data);
+            this.setState({
+                modal: !this.state.modal
+            })
         }).catch((err) => {
             console.log('error ', err);
+        })
+    }
+
+    toggleModal = () => {
+        this.setState({
+            modal: !this.state.modal
         })
     }
     
@@ -164,7 +201,7 @@ class Apply extends Component {
                                     />
                                 </MDBCol>
                                 <MDBCol md='2'>
-                                    <Link to={'/career'} >
+                                    <Link to={'/career/' + this.props.match.params.id} >
                                         <MDBIcon 
                                             icon="home"
                                             size='3x'
@@ -338,6 +375,13 @@ class Apply extends Component {
                                 </MDBCol>
                             </MDBRow>
                         </MDBCard>
+                        
+                        <Modal 
+                            message='Thank you for applying at Pay Nep Pvt. Ltd. We will contact you if you are shortlisted for interview.'
+                            modal={this.state.modal}
+                            toggleModal={this.toggleModal}
+                            path='/career'  />
+                        
                     </MDBContainer>
                 ))}
                 

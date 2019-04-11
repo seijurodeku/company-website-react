@@ -17,7 +17,6 @@ import {
 class DetailPost extends Component {
     constructor(props) {
         super(props);
-        // console.log(this.props);
         this.state = {
             detail: [],
             loading: true
@@ -27,10 +26,9 @@ class DetailPost extends Component {
     componentDidMount() {
         API.get('/career.json')
             .then(res => {
-                console.log(res)
                 const fetchedPost = [];
                 for (let key in res.data) {
-                    if(key == this.props.match.params.id){
+                    if(key === this.props.match.params.id){
                         fetchedPost.push({
                             ...res.data[key],
                             id: key

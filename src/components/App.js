@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import ContentPage from '../components/Content';
+
 import Login from '../components/Admin/Login';
+import NewPost from '../components/Admin/NewPost';
+import ApplicationDetail from '../components/Admin/ApplicationDetail';
+import Applications from '../components/Admin/Applications';
+import PositionApplications from '../components/Admin/PositionApplications';
+
 import Career from '../components/Career';
-import NewPost from '../components/Career/NewPost';
 import DetailPost from '../components/Career/Detail';
 import Apply from '../components/Career/Apply';
 
@@ -36,6 +41,9 @@ class App extends Component {
               <Route exact path='/career/:id' component={DetailPost} />
               <Route path='/career/:id/apply/' component={Apply} />
               <Route exact path='/' component={ContentPage}/>
+              <Route exact path='/admin/applications' component={Applications} />
+              <Route exact path='/admin/applications/:postId' component={PositionApplications} />
+              <Route path='/admin/applications/:postId/:applyid' component={ApplicationDetail} />
               <Redirect to='/' />
             </Switch>
           </div>

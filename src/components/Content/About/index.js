@@ -3,12 +3,7 @@ import {
     MDBContainer,
     MDBRow,
     MDBCol,
-    Animation,
-    MDBIcon,
-    MDBCard,
-    MDBCardBody,
-    MDBCardTitle,
-    MDBCardText
+    Animation
 } from 'mdbreact';
 
 class About extends Component {
@@ -54,7 +49,6 @@ class About extends Component {
                                     className='about-image'
                                     src='/images/phone-1.png'
                                     alt='about-image'
-                                    // height='100%'
                                 />
                             </Animation>
                         </MDBCol>
@@ -62,7 +56,6 @@ class About extends Component {
                         <MDBCol md='6' className='about-description'>
                             {/* <MDBIcon icon="quote-left" size="3x" pull="left" border /> */}
                             <Animation reveal type='slideInRight'>
-                                {/* <h1>WHO WE ARE</h1> */}
                                 <p>
                                     <h2><span style={{color: "#FF7F50"}}>Pay Nep - </span>Payment Service Provider (PSP) </h2>
                                     <p class="text-justify">Established in 2017 under the Companies Act 2053 with a paid up capital of 60 Million NRS,

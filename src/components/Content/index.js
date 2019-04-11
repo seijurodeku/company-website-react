@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Carousel } from 'react-responsive-carousel';
+// import { Carousel } from 'react-responsive-carousel';
 
 import Home from './Home';
 import About from './About';
@@ -37,7 +37,6 @@ class ContentPage extends Component {
                 }
             ]
         }
-        // console.log(this.state);
     }
 
     render() {

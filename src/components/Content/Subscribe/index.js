@@ -91,7 +91,8 @@ class Subscribe extends Component {
                         <Modal 
                             message='We will keep you posted through email!!!' 
                             modal={this.state.modal}
-                            toggleModal={this.toggleModal}  />
+                            toggleModal={this.toggleModal}
+                            path='/'  />
                     </div>
                 </Mask>
             </Parallax>

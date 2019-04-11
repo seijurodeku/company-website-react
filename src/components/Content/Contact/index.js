@@ -5,7 +5,6 @@ import {
     MDBCol,
     MDBInput,
     Animation,
-    MDBCard,
     MDBBtn,
     MDBIcon
 } from 'mdbreact'; 
@@ -173,7 +172,8 @@ class Contact extends Component {
                 <Modal 
                     message='We received your message. We will get back to you soon.' 
                     modal={this.state.modal}
-                    toggleModal={this.toggleModal}  />
+                    toggleModal={this.toggleModal}
+                    path='/'  />
             </MDBContainer>
         );
     }

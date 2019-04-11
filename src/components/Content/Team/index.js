@@ -9,8 +9,7 @@ import {
     MDBCardText,
     MDBCardTitle,
     MDBCardBody,
-    Animation,
-    MDBIcon
+    Animation
 } from 'mdbreact';
 
 import Image from 'react-bootstrap/Image';

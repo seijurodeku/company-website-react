@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
     MDBNavbar,
     MDBNavbarBrand,
@@ -56,141 +56,139 @@ class Navigation extends Component {
         return (
             <div>
                 <header>
-                    {/* <Router> */}
-                        {isMobile
-                            ?
-                            <MDBNavbar
-                                color='white'
-                                fixed='top'
-                                dark
-                                expand='md'
-                                className='navbar'
-                            >
-                                <MDBNavbarBrand href='paynep.com.np'>
-                                    <img
-                                        src='/images/3x.png'
-                                        alt='logo'
-                                        className='App-logo'
-                                    />
-                                </MDBNavbarBrand>
-                                {!this.state.isWideEnough && 
-                                    <MDBNavbarToggler 
-                                        className='nav-toggler'
-                                        onClick={this.onClick}
-                                        image='/images/toggler5.jpeg'
-                                        on
-                                    />
-                                }
-                                <MDBCollapse isOpen={this.state.collapse} navbar>
-                                    <MDBNavbarNav right>
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <AnchorLink className='nav-link' href='#home'>
-                                                <strong>Home</strong>
-                                            </AnchorLink>
-                                        </MDBNavItem>
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <AnchorLink className='nav-link' href='#about'>
-                                                <strong>About</strong>
-                                            </AnchorLink>
-                                        </MDBNavItem>
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <AnchorLink className='nav-link' href='#services'>
-                                                <strong>Services</strong>
-                                            </AnchorLink>
-                                        </MDBNavItem>
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <AnchorLink className='nav-link' href='#gallery'>
-                                                <strong>Gallery</strong>
-                                            </AnchorLink>
-                                        </MDBNavItem>
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <AnchorLink className='nav-link' href='#team'>
-                                                <strong>Team</strong>
-                                            </AnchorLink>
-                                        </MDBNavItem>
+                    {isMobile
+                        ?
+                        <MDBNavbar
+                            color='white'
+                            fixed='top'
+                            dark
+                            expand='md'
+                            className='navbar'
+                        >
+                            <MDBNavbarBrand href='paynep.com.np'>
+                                <img
+                                    src='/images/3x.png'
+                                    alt='logo'
+                                    className='App-logo'
+                                />
+                            </MDBNavbarBrand>
+                            {!this.state.isWideEnough && 
+                                <MDBNavbarToggler 
+                                    className='nav-toggler'
+                                    onClick={this.onClick}
+                                    image='/images/toggler5.jpeg'
+                                    on
+                                />
+                            }
+                            <MDBCollapse isOpen={this.state.collapse} navbar>
+                                <MDBNavbarNav right>
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <AnchorLink className='nav-link' href='#home'>
+                                            <strong>Home</strong>
+                                        </AnchorLink>
+                                    </MDBNavItem>
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <AnchorLink className='nav-link' href='#about'>
+                                            <strong>About</strong>
+                                        </AnchorLink>
+                                    </MDBNavItem>
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <AnchorLink className='nav-link' href='#services'>
+                                            <strong>Services</strong>
+                                        </AnchorLink>
+                                    </MDBNavItem>
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <AnchorLink className='nav-link' href='#gallery'>
+                                            <strong>Gallery</strong>
+                                        </AnchorLink>
+                                    </MDBNavItem>
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <AnchorLink className='nav-link' href='#team'>
+                                            <strong>Team</strong>
+                                        </AnchorLink>
+                                    </MDBNavItem>
 
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <Link className='nav-link' to='/career'>
-                                                <strong>Career</strong>
-                                            </Link>
-                                        </MDBNavItem>
-                                        
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <AnchorLink className='nav-link' href='#contact'>
-                                                <strong>Contact</strong>
-                                            </AnchorLink>
-                                        </MDBNavItem>
-                                    </MDBNavbarNav>
-                                </MDBCollapse>
-                            </MDBNavbar>
-                            :
-                            <MDBNavbar
-                                color='white'
-                                fixed='top'
-                                dark
-                                expand='md'
-                                scrolling
-                                // transparent
-                                className='navbar'
-                            >
-                                <MDBNavbarBrand href='paynep.com.np'>
-                                    <img
-                                        src='/images/3x.png'
-                                        alt='logo'
-                                        className='App-logo'
-                                    />
-                                </MDBNavbarBrand>
-                                {!this.state.isWideEnough && 
-                                    <MDBNavbarToggler 
-                                        className='nav-toggler'
-                                        onClick={this.onClick}
-                                        on
-                                    />
-                                }
-                                <MDBCollapse isOpen={this.state.collapse} navbar>
-                                    <MDBNavbarNav right>
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <AnchorLink className='nav-link' href='#home'>
-                                                <strong>Home</strong>
-                                            </AnchorLink>
-                                        </MDBNavItem>
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <AnchorLink className='nav-link' href='#about'>
-                                                <strong>About</strong>
-                                            </AnchorLink>
-                                        </MDBNavItem>
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <AnchorLink className='nav-link' href='#services'>
-                                                <strong>Services</strong>
-                                            </AnchorLink>
-                                        </MDBNavItem>
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <AnchorLink className='nav-link' href='#gallery'>
-                                                <strong>Gallery</strong>
-                                            </AnchorLink>
-                                        </MDBNavItem>
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <AnchorLink className='nav-link' href='#team'>
-                                                <strong>Team</strong>
-                                            </AnchorLink>
-                                        </MDBNavItem>
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <Link className='nav-link' to='/career'>
+                                            <strong>Career</strong>
+                                        </Link>
+                                    </MDBNavItem>
+                                    
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <AnchorLink className='nav-link' href='#contact'>
+                                            <strong>Contact</strong>
+                                        </AnchorLink>
+                                    </MDBNavItem>
+                                </MDBNavbarNav>
+                            </MDBCollapse>
+                        </MDBNavbar>
+                        :
+                        <MDBNavbar
+                            color='white'
+                            fixed='top'
+                            dark
+                            expand='md'
+                            scrolling
+                            // transparent
+                            className='navbar'
+                        >
+                            <MDBNavbarBrand href='paynep.com.np'>
+                                <img
+                                    src='/images/3x.png'
+                                    alt='logo'
+                                    className='App-logo'
+                                />
+                            </MDBNavbarBrand>
+                            {!this.state.isWideEnough && 
+                                <MDBNavbarToggler 
+                                    className='nav-toggler'
+                                    onClick={this.onClick}
+                                    on
+                                />
+                            }
+                            <MDBCollapse isOpen={this.state.collapse} navbar>
+                                <MDBNavbarNav right>
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <AnchorLink className='nav-link' href='#home'>
+                                            <strong>Home</strong>
+                                        </AnchorLink>
+                                    </MDBNavItem>
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <AnchorLink className='nav-link' href='#about'>
+                                            <strong>About</strong>
+                                        </AnchorLink>
+                                    </MDBNavItem>
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <AnchorLink className='nav-link' href='#services'>
+                                            <strong>Services</strong>
+                                        </AnchorLink>
+                                    </MDBNavItem>
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <AnchorLink className='nav-link' href='#gallery'>
+                                            <strong>Gallery</strong>
+                                        </AnchorLink>
+                                    </MDBNavItem>
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <AnchorLink className='nav-link' href='#team'>
+                                            <strong>Team</strong>
+                                        </AnchorLink>
+                                    </MDBNavItem>
 
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <Link className='nav-link' to='/career'>
-                                                <strong>Career</strong>
-                                            </Link>
-                                        </MDBNavItem>
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <Link className='nav-link' to='/career'>
+                                            <strong>Career</strong>
+                                        </Link>
+                                    </MDBNavItem>
 
-                                        <MDBNavItem onClick={this.onLinkClick}>
-                                            <AnchorLink className='nav-link' href='#contact'>
-                                                <strong>Contact</strong>
-                                            </AnchorLink>
-                                        </MDBNavItem>
-                                    </MDBNavbarNav>
-                                </MDBCollapse>
-                            </MDBNavbar>
-                        }
-                    {/* </Router> */}
+                                    <MDBNavItem onClick={this.onLinkClick}>
+                                        <AnchorLink className='nav-link' href='#contact'>
+                                            <strong>Contact</strong>
+                                        </AnchorLink>
+                                    </MDBNavItem>
+                                </MDBNavbarNav>
+                            </MDBCollapse>
+                        </MDBNavbar>
+                    }
                 </header>
             </div>
         );

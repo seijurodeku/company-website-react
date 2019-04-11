@@ -836,5 +836,56 @@ a {
   }
 }
 
+.profile-img {
+  height: 90px;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  .profile-img {
+    margin-bottom: 10px;
+    margin-left: 33%;
+  }
+}
+
+.profile-label-heading {
+    margin-top: 10px;
+    color: rgb(97, 95, 95);
+    font-weight: 1000;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+.profile-label-body {
+  margin-top: 10px;
+  color: rgb(124, 123, 123);
+  font-weight: 380;
+  font-size: 14px;
+  padding-right: 20px;
+  font-family: monospace;
+}
+
+.badge {
+  background-color: #FF7F50 !important;
+  color: white;
+  border-radius: 25px;
+}
+
+.position-table {
+  margin-top: 4.5em;
+}
+
+@media only screen and (min-width: 992px) {
+  .position-table {
+    margin-top: 5.2em;
+  }
+}
+
+.position-heading {
+  font-weight: 400;
+  color: #c70039;
+}
+
 
 

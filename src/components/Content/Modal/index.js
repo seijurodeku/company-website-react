@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
+
+import { Link } from 'react-router-dom';
 
 import {
     MDBContainer,
@@ -19,10 +21,12 @@ const Modal = (props) => {
             >
                 <MDBModalBody className='text-center'>
                     {props.message}<br/>
-                    <MDBBtn
-                        color='primary' 
-                        onClick={props.toggleModal}
-                    >OK</MDBBtn>
+                    <Link to={props.path}>
+                        <MDBBtn
+                            color='primary' 
+                            onClick={props.toggleModal}
+                        >OK</MDBBtn>
+                    </Link>
                 </MDBModalBody>
             </MDBModal>
         </MDBContainer>
