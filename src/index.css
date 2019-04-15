@@ -838,6 +838,7 @@ a {
 
 .profile-img {
   height: 90px;
+  width: 90px;
   margin-top: 10px;
   margin-left: 30px;
 }
@@ -885,6 +886,45 @@ a {
 .position-heading {
   font-weight: 400;
   color: #c70039;
+}
+
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media only screen and (min-width: 600px) and (max-width: 991px) {
+  .tablet {
+    margin-top: 250px;
+    margin-bottom: 250px;
+  }
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 
 

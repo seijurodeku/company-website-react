@@ -1,242 +1,137 @@
-// import React, { Component } from 'react';
-
-// class emailApplications extends Component { 
-//     render () {
-//         return (
-//             <h1>email Applications</h1>
-//         );
-//     }
-// }
-
-// export default emailApplications;
-
-import React from 'react';
+import React, { Component, useRef } from 'react';
 import { 
-    MDBDataTable,
+    // MDBDataTable,
     MDBContainer,
     MDBRow,
-    MDBCol
+    MDBCol,
+    MDBIcon,
+    MDBBtn
 } from 'mdbreact';
 
-const emailApplications = () => {
-  const data = {
-    columns: [
-      {
-        label: 'Name',
-        field: 'name',
-        sort: 'asc',
-        width: 100
-      },
-      {
-        label: 'Email',
-        field: 'email',
-        sort: 'asc',
-        width: 400
-      },
-      {
-        label: 'Address',
-        field: 'address',
-        sort: 'asc',
-        width: 180
-      },
-      {
-        label: 'Phone',
-        field: 'phone',
-        sort: 'asc',
-        width: 200
-      }
-    ],
-    rows: [
-      {
-        name: 'Tiger Nixon',
-        email: 'System Architect',
-        phone: 'Edinburgh',
-        address: '61'
-      },
-      {
-        name: 'Garrett Winters',
-        email: 'Accountant',
-        phone: 'Tokyo',
-        address: '63'
-      },
-      {
-        name: 'Ashton Cox',
-        email: 'Junior Technical Author',
-        phone: 'San Francisco',
-        address: '66'
-      },
-      {
-        name: 'Cedric Kelly',
-        email: 'Senior Javascript Developer',
-        phone: 'Edinburgh',
-        address: '22'
-      },
-      {
-        name: 'Airi Satou',
-        email: 'Accountant',
-        phone: 'Tokyo',
-        address: '33'
-      },
-      {
-        name: 'Brielle Williamson',
-        email: 'Integration Specialist',
-        phone: 'New York',
-        address: '61'
-      },
-      {
-        name: 'Herrod Chandler',
-        email: 'Sales Assistant',
-        phone: 'San Francisco',
-        address: '59'
-      },
-      {
-        name: 'Rhona Davidson',
-        email: 'Integration Specialist',
-        phone: 'Tokyo',
-        address: '55'
-      },
-      {
-        name: 'Colleen Hurst',
-        email: 'Javascript Developer',
-        phone: 'San Francisco',
-        address: '39'
-      },
-      {
-        name: 'Sonya Frost',
-        email: 'Software Engineer',
-        phone: 'Edinburgh',
-        address: '23'
-      },
-      {
-        name: 'Jena Gaines',
-        email: 'phone Manaddressr',
-        phone: 'London',
-        address: '30'
-      },
-      {
-        name: 'Quinn Flynn',
-        email: 'Support Lead',
-        phone: 'Edinburgh',
-        address: '22'
-      },
-      {
-        name: 'Charde Marshall',
-        email: 'Regional Director',
-        phone: 'San Francisco',
-        address: '36'
-      },
-      {
-        name: 'Haley Kennedy',
-        email: 'Senior Marketing Designer',
-        phone: 'London',
-        address: '43'
-      },
-      {
-        name: 'Tatyana Fitzpatrick',
-        email: 'Regional Director',
-        phone: 'London',
-        address: '19'
-      },
-      {
-        name: 'Michael Silva',
-        email: 'Marketing Designer',
-        phone: 'London',
-        address: '66'
-      },
-      {
-        name: 'Paul Byrd',
-        email: 'Chief Financial phoner (CFO)',
-        phone: 'New York',
-        address: '64'
-      },
-      {
-        name: 'Gloria Little',
-        email: 'Systems Administrator',
-        phone: 'New York',
-        address: '59'
-      },
-      {
-        name: 'Bradley Greer',
-        email: 'Software Engineer',
-        phone: 'London',
-        address: '41'
-      },
-      {
-        name: 'Dai Rios',
-        email: 'Personnel Lead',
-        phone: 'Edinburgh',
-        address: '35'
-      },
-      {
-        name: 'Jenette Caldwell',
-        email: 'Development Lead',
-        phone: 'New York',
-        address: '30'
-      },
-      {
-        name: 'Yuri Berry',
-        email: 'Chief Marketing phoner (CMO)',
-        phone: 'New York',
-        address: '40'
-      },
-      {
-        name: 'Caesar Vance',
-        email: 'Pre-Sales Support',
-        phone: 'New York',
-        address: '21'
-      },
-      {
-        name: 'Doris Wilder',
-        email: 'Sales Assistant',
-        phone: 'Sidney',
-        address: '23'
-      },
-      {
-        name: 'Angelica Ramos',
-        email: 'Chief Executive phoner (CEO)',
-        phone: 'London',
-        address: '47'
-      },
-      {
-        name: 'Gavin Joyce',
-        email: 'Developer',
-        phone: 'Edinburgh',
-        address: '42'
-      },
-      {
-        name: 'Jennifer Chang',
-        email: 'Regional Director',
-        phone: 'Singapore',
-        address: '28'
-      }
-    ]
-  };
+import { Link } from 'react-router-dom';
 
-  return (
-    <div className='bg-grey'>
-        <MDBContainer className='position-table'>
-            <MDBRow>
-                <MDBCol>
-                    <center><h2 className='position-heading'>Business Development Executive</h2></center>
-                </MDBCol>
-            </MDBRow>
-            <hr/>
-            <MDBRow>
-                <MDBCol>
-                    <MDBDataTable
-                        striped
-                        bordered
-                        hover
-                        data={data}
-                    />    
-                </MDBCol>
-            </MDBRow>
+import ReactToPrint from 'react-to-print';
+
+import API from '../../api';
+
+
+class emailApplications extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      application: [],
+      position_title: ''
+    }
+  }
+
+  componentDidMount() {
+    API.get('/career.json')
+      .then(res=>{
+        const fetchedPost = [];
+          for (let key in res.data) {
+              if(key === this.props.match.params.postId){
+                  fetchedPost.push({
+                      ...res.data[key],
+                      id: key
+                  })    
+              }
+          }
+          this.setState({position_title: fetchedPost[0].position_title})
+      })
+
+    API.get('/application.json')
+      .then(res => {
+          const fetchedApplication = [];
+          for (let key in res.data) {
+              if(res.data[key]['postKey'] === this.props.match.params.postId){
+                  fetchedApplication.push({
+                      ...res.data[key],
+                      id: key
+                  })    
+              }
+          }
+          console.log(fetchedApplication);
+          this.setState({
+              application: fetchedApplication,
+              loading: false
+          })
+      })
+      .catch(err => {
+          console.log(err)
+      })
+  }
+
+  render() {
+    const { loading } = this.state; 
+    return(
+      <div className='bg-grey'>
+        {loading 
+          ?
+            <MDBIcon 
+                icon="cog" 
+                spin 
+                size="3x" 
+                fixed
+                className='loading-detail tablet' />
+            :
+              <MDBContainer className='position-table'>
+                <MDBRow>
+                    <MDBCol>
+                        <center><h2 className='position-heading'>{this.state.position_title}</h2></center>
+                    </MDBCol>
+                </MDBRow>
+                <hr/>
                 
-        </MDBContainer>    
-    </div>
-    
-    
-  );
-}
+                <MDBRow>
+                    <MDBCol style={{overflowX: 'auto'}}>
+                      <table>
+                        <tr>
+                          <th><strong>Name</strong></th>
+                          <th><strong>Email</strong></th>
+                          <th><strong>Phone</strong></th>
+                          <th><strong>Address</strong></th>
+                        </tr>
+                        {
+                          this.state.application.map(app => (
+                            
+                              <tr>
+                                <td>
+                                  <Link 
+                                    to={'/admin/applications/' + this.props.match.params.postId + '/' + app.id} 
+                                  >
+                                    {app.firstName + ' ' + app.lastName}
+                                  </Link>
+                                </td>
+                                <td>{app.email}</td>
+                                <td>{app.phone}</td>
+                                <td>{app.address}</td>
+                              </tr>
+                              
+                          ))
+                        }
+                      </table>
+                    </MDBCol>
+                </MDBRow>
+                <MDBRow>
+                  <MDBCol>
+                      <Link to='/admin/applications'>                                    
+                          <MDBBtn outline 
+                              className='btn-get-started career-apply mt-4'
+                              // onClick={this.handleSubmit}
+                          >
+                              <MDBIcon icon='angle-double-left' /> Back
+                          </MDBBtn>
+                      </Link>
+                  </MDBCol>
+                </MDBRow>
+                    
+              </MDBContainer>
+        } 
+      </div>
+    );
+  }
+} 
+  
 
 export default emailApplications;

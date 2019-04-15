@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import {
     MDBContainer,
     MDBCard,
@@ -7,11 +9,64 @@ import {
     MDBCol,
     MDBIcon,
     MDBCardImage,
-    MDBBadge
+    // MDBBadge
 } from 'mdbreact';
 
+import firebase from '../../../firebase';
+
 class Applications extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: true,
+            detail: [],
+            applications: []
+        }
+    }
+
+    fetchCareer = () => {
+        const postRef = firebase.database().ref('career');
+        postRef.on('value', (snapshot) => {
+            let post = snapshot.val();
+            let fetchedPost = [];
+            for (let key in post) {
+                fetchedPost.push({
+                    ...post[key],
+                    id: key
+                })
+            }
+            this.setState({
+                detail: fetchedPost,
+                loading: false
+            })
+        })
+    }
+
+    fetchApplication = () => {
+        const applicationRef = firebase.database().ref('application');
+        applicationRef.on('value', (snapshot) => {
+            let apply = snapshot.val();
+            let newApplication = [];
+            for (let key in apply) {
+                newApplication.push({
+                    ...apply[key],
+                    id: key
+                })
+            }
+            this.setState({
+                applications: newApplication,
+                loading: false
+            })
+        })
+    }
+
+    componentDidMount(){
+        this.fetchCareer();
+        this.fetchApplication();
+    }
+
     render() {
+        const { loading } = this.state;
         return (
             <div className='bg-brown'>
                 <MDBContainer>
@@ -28,104 +83,64 @@ class Applications extends Component {
                                 />
                             </MDBCol>
                             <MDBCol md='2'>
-                                {/* <Link to={'/career/' + this.props.match.params.id} > */}
+                                <Link to='/' >
                                     <MDBIcon 
                                         icon="home"
                                         size='3x'
                                         className='home-icon'
                                     />
-                                {/* </Link> */}
+                                </Link>
                             </MDBCol>
                             
                         </MDBRow>
                         <hr/>
                         
-                        <MDBRow>
-                            <MDBCol className='padd-detail'>
-                                <h4 className='post-title'>
+                        {loading 
+                        ?
+                            <MDBIcon 
+                                icon="cog" 
+                                spin 
+                                size="3x" 
+                                fixed
+                                className='loading-detail tablet' />
+                            :
+                            this.state.detail.map(det=>(
+                                <div>
                                     <MDBRow>
-                                        <MDBCol md='11'>
-                                            Business Development Executive
-                                            &nbsp;
-                                            <MDBBadge  
-                                                className="ml-2 badge"
-                                            >9</MDBBadge>
+                                        <MDBCol className='padd-detail'>
+                                            <h4 className='post-title'>
+                                                <MDBRow>
+                                                    <MDBCol md='11'>
+                                                        <Link 
+                                                            to={'/admin/applications/' + det.id} 
+                                                            style={{color: '#FF7F50'}}
+                                                        >{det.position_title}</Link>
+                                                        
+                                                        {/* &nbsp;
+                                                        <MDBBadge  
+                                                            className="ml-2 badge"
+                                                        >9</MDBBadge> */}
+                                                    </MDBCol>
+                                                    
+                                                    <MDBCol md='1'>
+                                                        <Link 
+                                                            to={'/admin/applications/' + det.id} 
+                                                            style={{color: '#FF7F50'}}
+                                                        >
+                                                            <MDBIcon 
+                                                                icon="angle-double-right" 
+                                                            />
+                                                        </Link>
+                                                    </MDBCol>
+                                                </MDBRow>                                    
+                                            </h4>
                                         </MDBCol>
-                                        <MDBCol md='1'>
-                                            <MDBIcon 
-                                                icon="angle-double-right" 
-                                            />
-                                        </MDBCol>
-                                    </MDBRow>                                    
-                                </h4>
-                            </MDBCol>
-                        </MDBRow> 
-                        <hr/>
+                                    </MDBRow> 
+                                    <hr/>    
+                                </div>
+                            ))                        
+                        }
 
-                        <MDBRow>
-                            <MDBCol className='padd-detail'>
-                                <h4 className='post-title'>
-                                    <MDBRow>
-                                        <MDBCol md='11'>
-                                            Business Operations Executive
-                                            &nbsp;
-                                            <MDBBadge  
-                                                className="ml-2 badge"
-                                            >7</MDBBadge>
-                                        </MDBCol>
-                                        <MDBCol md='1'>
-                                            <MDBIcon 
-                                                icon="angle-double-right" 
-                                            />
-                                        </MDBCol>
-                                    </MDBRow>
-                                </h4>
-                            </MDBCol>
-                        </MDBRow> 
-                        <hr/>
-
-                        <MDBRow>
-                            <MDBCol className='padd-detail'>
-                                <h4 className='post-title'>
-                                    <MDBRow>
-                                        <MDBCol md='11'>
-                                            Front Desk Executive
-                                            &nbsp;
-                                            <MDBBadge  
-                                                className="ml-2 badge"
-                                            >3</MDBBadge>
-                                        </MDBCol>
-                                        <MDBCol md='1'>
-                                            <MDBIcon 
-                                                icon="angle-double-right" 
-                                            />
-                                        </MDBCol>
-                                    </MDBRow>
-                                </h4>
-                            </MDBCol>
-                        </MDBRow> 
-                        <hr/>
-
-                        <MDBRow>
-                            <MDBCol className='padd-detail'>
-                                <h4 className='post-title'>
-                                    <MDBRow>
-                                        <MDBCol md='11'>
-                                            Call Center Executive
-                                            &nbsp;
-                                            <MDBBadge  
-                                                className="ml-2 badge"
-                                            >4</MDBBadge>
-                                        </MDBCol>
-                                        <MDBCol md='1'>
-                                            <MDBIcon 
-                                                icon="angle-double-right" 
-                                            />
-                                        </MDBCol>
-                                    </MDBRow>
-                                </h4>
-                            </MDBCol>
-                        </MDBRow> 
                     </MDBCard>
                 </MDBContainer>
             </div>

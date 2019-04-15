@@ -37,7 +37,8 @@ class Apply extends Component {
             photoProgress: 0,
             resumeProgress: 0,
             loading: true,
-            modal: false
+            modal: false,
+            position_title: ''
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,8 +55,10 @@ class Apply extends Component {
                     id: key
                 })
             }
+            // console.log(fetchedPost[0].position_title);
             this.setState({
                 detail: fetchedPost,
+                position_title: fetchedPost[0].position_title,
                 loading: false
             })
         })
@@ -156,7 +159,9 @@ class Apply extends Component {
             address: this.state.address,
             photoUrl: this.state.photoUrl,
             resumeUrl: this.state.resumeUrl,
-            postKey: this.props.match.params.id
+            postKey: this.props.match.params.id,
+            postTitle: this.state.position_title,
+            coverLetter: this.state.coverLetter
         }).then((data) => {
             console.log('data ', data);
             this.setState({
