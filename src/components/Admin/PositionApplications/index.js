@@ -10,63 +10,62 @@ import {
 
 import { Link } from 'react-router-dom';
 
-import ReactToPrint from 'react-to-print';
-
-import API from '../../api';
-
+import firebase from '../../../firebase';
 
 class emailApplications extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
+      loadingPost: true,
+      loadingApplications: true,
+      detail: [],
       application: [],
       position_title: ''
     }
   }
 
   componentDidMount() {
-    API.get('/career.json')
-      .then(res=>{
-        const fetchedPost = [];
-          for (let key in res.data) {
-              if(key === this.props.match.params.postId){
-                  fetchedPost.push({
-                      ...res.data[key],
-                      id: key
-                  })    
-              }
-          }
-          this.setState({position_title: fetchedPost[0].position_title})
-      })
+    const postRef = firebase.database().ref('career').orderByKey().equalTo(this.props.match.params.postId);
+    postRef.on('value', (snapshot) => {
+        let post = snapshot.val();
+        let fetchedPost = [];
+        console.log("Get request for apply.")
+        for (let key in post) {
+            fetchedPost.push({
+                ...post[key],
+                id: key
+            })
+        }
+        this.setState({
+            detail: fetchedPost,
+            position_title: fetchedPost[0].position_title,
+            loadingPost: false
+        })
+    })
 
-    API.get('/application.json')
-      .then(res => {
-          const fetchedApplication = [];
-          for (let key in res.data) {
-              if(res.data[key]['postKey'] === this.props.match.params.postId){
-                  fetchedApplication.push({
-                      ...res.data[key],
-                      id: key
-                  })    
-              }
-          }
-          console.log(fetchedApplication);
-          this.setState({
-              application: fetchedApplication,
-              loading: false
-          })
-      })
-      .catch(err => {
-          console.log(err)
-      })
+    const appRef = firebase.database().ref('application').orderByChild('postKey').equalTo(this.props.match.params.postId);
+    appRef.on('value', (snapshot) => {
+        let app = snapshot.val();
+        let fetchedApplication = [];
+        console.log("Get request for apply.")
+        for (let key in app) {
+            fetchedApplication.push({
+                ...app[key],
+                id: key
+            })
+        }
+        this.setState({
+            application: fetchedApplication,
+            loadingApplication: false
+        })
+    })
   }
 
   render() {
-    const { loading } = this.state; 
+    const { loadingPost, loadingApplications } = this.state; 
     return(
       <div className='bg-grey'>
-        {loading 
+        {loadingPost && loadingApplications 
           ?
             <MDBIcon 
                 icon="cog" 
@@ -118,7 +117,6 @@ class emailApplications extends Component{
                       <Link to='/admin/applications'>                                    
                           <MDBBtn outline 
                               className='btn-get-started career-apply mt-4'
-                              // onClick={this.handleSubmit}
                           >
                               <MDBIcon icon='angle-double-left' /> Back
                           </MDBBtn>

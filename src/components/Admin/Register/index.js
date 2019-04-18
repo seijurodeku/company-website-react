@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { withRouter } from 'react-router-dom';
+import { withRouter, Route } from 'react-router-dom';
 
 import {
     MDBContainer,
@@ -14,7 +14,7 @@ import {
 
 import firebase from '../../../firebase';
 
-class Login extends Component {
+class Register extends Component {
     constructor(props) {
         super(props);
         console.log(props);
@@ -36,13 +36,11 @@ class Login extends Component {
         const { email, password } = this.state;
         firebase
             .auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(res => {
-                this.props.history.push('/admin/applications');
-                console.log('Hello world');
-                console.log("User: ",res.user.ra);
-                localStorage.setItem('token', res.user.ra);
-                localStorage.setItem('refresh_token', res.user.refreshToken)
+            .createUserWithEmailAndPassword(email, password)
+            .then(user => {
+                // this.props.history.push('/admin/applications');
+                // console.log(user);
+                this.props.history.push('/admin');
             })
             .catch(error => {
                 this.setState({error});
@@ -59,10 +57,10 @@ class Login extends Component {
                         <MDBCard 
                             id='login'>
                             <MDBCardBody>
-                                <form onSubmit={this.handleSubmit}>
+                                <form>
                                     <p 
                                         className='h4 text-center py-4 login-header'
-                                    >Log In</p>
+                                    >Register</p>
                                     
                                     <div className='grey-text'>
                                         <MDBInput 
@@ -93,8 +91,9 @@ class Login extends Component {
                                             outline 
                                             type='submit'
                                             className='btn-get-started'
+                                            onSubmit={this.handleSubmit}
                                         >
-                                            Login
+                                            Register
                                         </MDBBtn>
                                     </div>
                                 </form>
@@ -121,4 +120,4 @@ class Login extends Component {
     }
 }
 
-export default withRouter(Login);
+export default withRouter(Register);

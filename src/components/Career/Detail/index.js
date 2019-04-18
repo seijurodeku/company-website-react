@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import API from '../../api';
+// import API from '../../api';
+import firebase from '../../../firebase';
 
 import {
     MDBContainer,
@@ -24,25 +25,43 @@ class DetailPost extends Component {
     }
 
     componentDidMount() {
-        API.get('/career.json')
-            .then(res => {
-                const fetchedPost = [];
-                for (let key in res.data) {
-                    if(key === this.props.match.params.id){
-                        fetchedPost.push({
-                            ...res.data[key],
-                            id: key
-                        })    
-                    }
-                }
-                this.setState({
-                    detail: fetchedPost,
-                    loading: false
+        const postRef = firebase.database().ref('career').orderByKey().equalTo(this.props.match.params.id);
+        postRef.on('value', (snapshot) => {
+            let post = snapshot.val();
+            let fetchedPost = [];
+            console.log("Get request for apply.")
+            for (let key in post) {
+                fetchedPost.push({
+                    ...post[key],
+                    id: key
                 })
+            }
+            // console.log(fetchedPost[0].position_title);
+            this.setState({
+                detail: fetchedPost,
+                loading: false
             })
-            .catch(err => {
-                console.log(err)
-            })
+        })
+
+        // API.get('/career.json')
+        //     .then(res => {
+        //         const fetchedPost = [];
+        //         for (let key in res.data) {
+        //             if(key === this.props.match.params.id){
+        //                 fetchedPost.push({
+        //                     ...res.data[key],
+        //                     id: key
+        //                 })    
+        //             }
+        //         }
+        //         this.setState({
+        //             detail: fetchedPost,
+        //             loading: false
+        //         })
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //     })
     }
 
     render() {

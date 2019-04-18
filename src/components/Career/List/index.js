@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import API from '../../api';
+// import API from '../../api';
+import firebase from '../../../firebase';
 
 import {
     MDBContainer,
@@ -22,23 +23,21 @@ class PostList extends Component {
     }
 
     componentDidMount() {
-        API.get('/career.json')
-            .then(res => {
-                const fetchedPost = [];
-                for (let key in res.data) {
-                    fetchedPost.push({
-                        ...res.data[key],
-                        id: key
-                    })
-                }
-                this.setState({
-                    detail: fetchedPost,
-                    loading: false
+        firebase.database().ref('career').on('value', (snapshot) => {
+            let post = snapshot.val();
+            let fetchedPost = [];
+            for (let key in post) {
+                fetchedPost.push({
+                    ...post[key],
+                    id: key
                 })
+            }
+
+            this.setState({
+                detail: fetchedPost,
+                loading: false
             })
-            .catch(err => {
-                console.log(err)
-            })
+        })
     }
     
     render() {

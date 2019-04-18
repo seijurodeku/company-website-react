@@ -9,6 +9,7 @@ import {
     MDBCol,
     MDBIcon,
     MDBCardImage,
+    MDBBtn
     // MDBBadge
 } from 'mdbreact';
 
@@ -58,6 +59,12 @@ class Applications extends Component {
                 loading: false
             })
         })
+    }
+
+    handleLogout = (e) => {
+        e.preventDefault();
+        firebase.auth().signOut();
+        this.props.history.push('/admin');
     }
 
     componentDidMount(){
@@ -140,6 +147,30 @@ class Applications extends Component {
                                 </div>
                             ))                        
                         }
+
+                    <MDBRow>
+                        <MDBCol>                                   
+                            <MDBBtn outline 
+                                className='btn-get-started career-apply mt-4'
+                                onClick={this.handleLogout}
+                            >
+                                <MDBIcon icon='power-off' /> Logout
+                            </MDBBtn>
+                        </MDBCol>
+
+                        <MDBCol> 
+                            <Link 
+                                to='/admin/newpost/' 
+                                style={{color: '#FF7F50'}}
+                            >                                  
+                                <MDBBtn outline 
+                                    className='btn-get-started career-apply mt-4'
+                                >
+                                    <MDBIcon icon='plus' /> Add New Position
+                                </MDBBtn>
+                            </Link>
+                        </MDBCol>
+                    </MDBRow>
 
                     </MDBCard>
                 </MDBContainer>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import API from '../../api';
 
 import {
@@ -8,7 +10,8 @@ import {
     MDBCol,
     MDBInput,
     MDBBtn,
-    MDBCard
+    MDBCard,
+    MDBIcon
 } from 'mdbreact';
 
 class NewPost extends Component {
@@ -60,7 +63,7 @@ class NewPost extends Component {
                 <MDBContainer>
                     <MDBCard className='margin-form'>
                         <MDBRow>
-                            <MDBCol>
+                            <MDBCol sm='10' lg='10' md='10'>
                                 <h1
                                     className='post-title'
                                     style={{
@@ -69,6 +72,19 @@ class NewPost extends Component {
                                         fontWeight: '400'
                                     }}
                                 >Add New Position</h1>    
+                            </MDBCol>
+                            
+                            <MDBCol sm='2' lg='2' md='2'>
+                                <Link 
+                                    to='/admin/applications/' 
+                                    style={{color: '#FF7F50'}}
+                                > 
+                                    <MDBIcon 
+                                        style={{marginTop: '1em'
+                                    }}
+                                        size='2x' 
+                                        icon='angle-double-left' />
+                                </Link>   
                             </MDBCol>
                             
                         </MDBRow>

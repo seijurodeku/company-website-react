@@ -49,6 +49,7 @@ class Apply extends Component {
         postRef.on('value', (snapshot) => {
             let post = snapshot.val();
             let fetchedPost = [];
+            console.log("Get request for apply.")
             for (let key in post) {
                 fetchedPost.push({
                     ...post[key],

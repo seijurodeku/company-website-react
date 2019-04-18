@@ -11,7 +11,7 @@ import {
 
 import { Link } from 'react-router-dom';
 
-import API from '../../api';
+import firebase from '../../../firebase';
 
 import Image from 'react-bootstrap/Image';
 
@@ -27,27 +27,23 @@ class ApplicationDetail extends Component {
     }
 
     componentDidMount() {
-        API.get('/application.json')
-            .then(res => {
-                const fetchedApplication = [];
-                for (let key in res.data) {
-                    if(key === this.props.match.params.applyid){
-                        fetchedApplication.push({
-                            ...res.data[key],
-                            id: key
-                        })    
-                    }
-                }
-                console.log(fetchedApplication);
-                this.setState({
-                    applicationDetail: fetchedApplication,
-                    loading: false,
-                    position_title: fetchedApplication[0].postTitle
+        const appRef = firebase.database().ref('application').orderByKey().equalTo(this.props.match.params.applyid);
+        appRef.on('value', (snapshot) => {
+            let app = snapshot.val();
+            let fetchedApplication = [];
+            console.log("Get request for apply.")
+            for (let key in app) {
+                fetchedApplication.push({
+                    ...app[key],
+                    id: key
                 })
+            }
+            this.setState({
+                applicationDetail: fetchedApplication,
+                loading: false,
+                position_title: fetchedApplication[0].postTitle
             })
-            .catch(err => {
-                console.log(err)
-            })
+        })
     }
 
     render() {
@@ -181,9 +177,7 @@ class ApplicationDetail extends Component {
                                                     <pre 
                                                         className='profile-label-body text-justify'                                                        
                                                     >
-                                                        {/* <p > */}
-                                                            {app.coverLetter}
-                                                        {/* </p> */}
+                                                        {app.coverLetter}
                                                     </pre>
                                                 </MDBCol>
                                             </MDBRow>
