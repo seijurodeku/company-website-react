@@ -22,6 +22,7 @@ class Contact extends Component {
             subject: '',
             message: '',
             modal: false,
+            loading: false,
             detail: [
                     {
                         icon: 'map-marker-alt',
@@ -53,6 +54,7 @@ class Contact extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        this.setState({loading: true})
         API.post('/contact.json', {
             name: this.state.name,
             email: this.state.email,
@@ -66,7 +68,8 @@ class Contact extends Component {
                 email: '',
                 subject: '',
                 message: '',
-                modal: !this.state.modal
+                modal: !this.state.modal,
+                loading: false
             })
         })
         .catch(err => {
@@ -75,6 +78,7 @@ class Contact extends Component {
     }
 
     render() {
+        const { loading } = this.state;
         return(
             <MDBContainer className='text-center'>
                 <Animation reveal type='bounceIn'>
@@ -138,11 +142,23 @@ class Contact extends Component {
                                                     name='message'
                                                     onChange={this.handleChange}
                                                     value={this.state.message} outline />
+                                                {loading
+                                                ?
+                                                <MDBBtn 
+                                                    outline 
+                                                    type='submit'
+                                                    className='btn-get-started'
+                                                >
+                                                    <MDBIcon icon="spinner" spin size="2x" fixed />
+                                                </MDBBtn>
+                                                :
                                                 <MDBBtn outline 
                                                     className='btn-get-started'
                                                     onClick={this.handleSubmit}
                                                 >
                                                     Send Message</MDBBtn>
+                                                }
+                                                
                                             </MDBCol>
                                         </MDBRow>
                                     </MDBContainer>

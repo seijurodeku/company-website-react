@@ -9,7 +9,8 @@ import {
     MDBInput,
     MDBBtn,
     MDBCard,
-    MDBCardBody
+    MDBCardBody,
+    MDBIcon
 } from 'mdbreact';
 
 import firebase from '../../../firebase';
@@ -17,12 +18,15 @@ import firebase from '../../../firebase';
 class Login extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
+        // console.log(props);
         this.state = {
             email: '',
             password: '',
-            error: null
+            error: null,
+            loading: false,
+            authenticated: this.props.authenticated
         }
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange = (e) => {
@@ -31,26 +35,27 @@ class Login extends Component {
         })
     } 
 
-    handleSubmit = (e) => {
+    handleSubmit (e) {
         e.preventDefault();
+        this.setState({ loading: true })
         const { email, password } = this.state;
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then(res => {
+                this.setState({
+                    loading: false
+                })
                 this.props.history.push('/admin/applications');
-                console.log('Hello world');
-                console.log("User: ",res.user.ra);
-                localStorage.setItem('token', res.user.ra);
-                localStorage.setItem('refresh_token', res.user.refreshToken)
             })
             .catch(error => {
                 this.setState({error});
+                this.setState({loading: false})
             })
     }
 
     render() {
-        const { email, password, error } = this.state;
+        const { email, password, error, loading } = this.state;
         return(
             <MDBContainer>
                 <MDBRow>
@@ -89,6 +94,16 @@ class Login extends Component {
                                         />
                                     </div>
                                     <div className='text-center py-4 mt-3'>
+                                        {loading 
+                                        ?
+                                        <MDBBtn 
+                                            outline 
+                                            type='submit'
+                                            className='btn-get-started'
+                                        >
+                                            <MDBIcon icon="spinner" spin size="2x" fixed />
+                                        </MDBBtn>
+                                        :
                                         <MDBBtn 
                                             outline 
                                             type='submit'
@@ -96,25 +111,32 @@ class Login extends Component {
                                         >
                                             Login
                                         </MDBBtn>
+                                        }
                                     </div>
                                 </form>
+
+                                {error
+                                ?
+                                <MDBRow>
+                                    <MDBCol>
+                                        <MDBCard style={{opacity: '0.8'}} color="red lighten-1" text="white" className="text-center">
+                                            <MDBCardBody>
+                                            {error.message}
+                                            </MDBCardBody>
+                                        </MDBCard>
+                                    </MDBCol>
+                                </MDBRow>                    
+                                :
+                                null}
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
                     <MDBCol md='2' lg='3'></MDBCol>
+
+                    
                 </MDBRow>
 
-                {error
-                ?
-                <MDBRow>
-                    <MDBCard color="red lighten-1" text="white" className="text-center">
-                        <MDBCardBody>
-                        {error.message}
-                        </MDBCardBody>
-                    </MDBCard>
-                </MDBRow>
-                :
-                null}
+                
                 
             </MDBContainer>
         );

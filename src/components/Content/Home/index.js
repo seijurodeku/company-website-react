@@ -39,7 +39,7 @@ class Home extends Component {
                     <header>
                         <MDBView>
                             <img
-                                src="/images/cover2.jpeg"
+                                src="/images/cover2.jpg"
                                 className="bg img-fluid"
                                 alt=""
                             />
@@ -55,20 +55,20 @@ class Home extends Component {
 
                                 <div className='box'>
                                     <MDBRow className='banner justify-content-center'>
-                                        <h1 className='banner-title'>
+                                        <h1 className='banner-title white-text'>
                                             Pay Nep Pvt. Ltd.
                                         </h1>
                                     </MDBRow>
 
                                     <MDBRow className='banner justify-content-center'>
-                                        <h2 className='banner-subtitle'>
+                                        <h2 className='banner-subtitle white-text'>
                                             Payment Service Provider
                                         </h2>
                                     </MDBRow>
 
                                     <MDBRow>
                                         <AnchorLink className='nav-link' href='#about'>
-                                            <MDBBtn outline className='btn-get-started'>Get Started</MDBBtn>
+                                            <MDBBtn outline className='btn-get-started bg-color'>Get Started</MDBBtn>
                                         </AnchorLink>
                                     </MDBRow>
                                 </div>

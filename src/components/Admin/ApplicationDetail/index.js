@@ -6,7 +6,8 @@ import {
     MDBRow,
     MDBCol,
     MDBCardImage,
-    MDBIcon
+    MDBIcon,
+    MDBBtn
 } from 'mdbreact';
 
 import { Link } from 'react-router-dom';
@@ -22,13 +23,33 @@ class ApplicationDetail extends Component {
         this.state = {
             applicationDetail: [],
             loading: true,
-            position_title: ''
+            position_title: '',
+            photoName: '',
+            resumeName: ''
         }
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     componentDidMount() {
+        const postRef = firebase.database().ref('career').orderByKey().equalTo(this.props.match.params.postId);
+        postRef.on('value', (snapshot) => {
+            let post = snapshot.val();
+            let fetchedPost = [];
+            console.log("Get request for apply.")
+            for (let key in post) {
+                fetchedPost.push({
+                    ...post[key],
+                    id: key
+                })
+            }
+            this.setState({
+                position_title: fetchedPost[0].position_title,
+                loadingPost: false
+            })
+        })
+
         const appRef = firebase.database().ref('application').orderByKey().equalTo(this.props.match.params.applyid);
-        appRef.on('value', (snapshot) => {
+        let onValueChange = appRef.on('value', (snapshot) => {
             let app = snapshot.val();
             let fetchedApplication = [];
             console.log("Get request for apply.")
@@ -38,12 +59,47 @@ class ApplicationDetail extends Component {
                     id: key
                 })
             }
+
             this.setState({
                 applicationDetail: fetchedApplication,
                 loading: false,
-                position_title: fetchedApplication[0].postTitle
+                photoName: fetchedApplication[0]['photoName'],
+                resumeName: fetchedApplication[0]['resumeName']
             })
         })
+        appRef.off('value', onValueChange);
+    }
+
+    removePhotoFromStorage = () => {
+        return new Promise((resolve, reject)=>{
+            firebase.storage().ref(`images/${this.state.photoName}`).delete().then(res=> {
+                resolve(true);
+            })
+            .catch(err => {
+                reject(err);
+            });
+        })        
+    }
+
+    removeResumeFromStorage = () => {
+        return new Promise((resolve, reject)=>{
+            firebase.storage().ref(`pdfs/${this.state.resumeName}`).delete().then(res=> {
+                resolve(true);
+            })
+            .catch(err => {
+                reject(err);
+            });
+        })
+    }
+
+    async handleDelete (e) {
+        e.preventDefault();
+        await this.removePhotoFromStorage();
+        await this.removeResumeFromStorage();
+
+        const appRef = firebase.database().ref('application').child(this.props.match.params.applyid);
+        appRef.remove();
+        this.props.history.push(`/admin/applications/${this.props.match.params.postId}`)
     }
 
     render() {
@@ -156,7 +212,7 @@ class ApplicationDetail extends Component {
                                                     <p className='profile-label-heading'>Resume</p>
                                                 </MDBCol>
                                                 <MDBCol lg='9' md='9'>
-                                                    <a href={app.resumeUrl}><p className='profile-label-body'>resume.pdf</p></a>
+                                                    <a href={app.resumeUrl}><p className='profile-label-body profile-resume'><u>resume.pdf</u></p></a>
                                                 </MDBCol>
                                             </MDBRow>
                                         </MDBCol>
@@ -181,6 +237,18 @@ class ApplicationDetail extends Component {
                                                     </pre>
                                                 </MDBCol>
                                             </MDBRow>
+                                        </MDBCol>
+                                    </MDBRow>
+                                    <hr/>
+                                    <MDBRow>
+                                        <MDBCol>
+                                            <MDBBtn 
+                                                outline 
+                                                className='btn-get-started career-apply mt-4'
+                                                onClick={this.handleDelete}
+                                            >
+                                                <MDBIcon icon='trash' /> Delete
+                                            </MDBBtn>
                                         </MDBCol>
                                     </MDBRow>
                                 </MDBCard> 

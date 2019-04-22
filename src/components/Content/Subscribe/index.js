@@ -4,7 +4,8 @@ import {
     MDBContainer,
     MDBRow,
     MDBCol,
-    MDBBtn
+    MDBBtn,
+    MDBIcon
 } from 'mdbreact';
 import { Parallax } from 'react-parallax';
 
@@ -17,7 +18,8 @@ class Subscribe extends Component {
         super(props);
         this.state = {
             subscribeEmail: '',
-            modal: false
+            modal: false,
+            loading: false
         }
     }
 
@@ -35,6 +37,7 @@ class Subscribe extends Component {
 
     handleClick = (e) => {
         e.preventDefault();
+        this.setState({loading: true})
         API.post('/subscribe.json', {
             subscribeEmail: this.state.subscribeEmail
         })
@@ -42,7 +45,8 @@ class Subscribe extends Component {
                 console.log(res.data);
                 this.setState({
                     subscribeEmail: '',
-                    modal: !this.state.modal
+                    modal: !this.state.modal,
+                    loading: false
                 })
             }) 
             .catch(err=> {
@@ -51,6 +55,7 @@ class Subscribe extends Component {
     }
 
     render () {
+        const { loading } = this.state;
         return (
             <Parallax
                 blur={3}
@@ -76,12 +81,24 @@ class Subscribe extends Component {
                                     </div>                              
                                 </MDBCol>
                                 <MDBCol lg='2' md='3' sm='12'>
+                                    {loading 
+                                    ?
+                                    <MDBBtn 
+                                        outline 
+                                        type='submit'
+                                        className='subscribe-button'
+                                    >
+                                        <MDBIcon icon="spinner" spin size="2x" fixed />
+                                    </MDBBtn>
+                                    :
                                     <MDBBtn outline 
                                         className='subscribe-button'
                                         onClick={this.handleClick}
                                     >
                                         Subscribe
                                     </MDBBtn>
+                                    }
+                                    
                                     
                                 </MDBCol>
                                 <MDBCol lg='3' md='2'></MDBCol>

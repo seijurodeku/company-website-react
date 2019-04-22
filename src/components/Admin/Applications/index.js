@@ -18,6 +18,7 @@ import firebase from '../../../firebase';
 class Applications extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
             loading: true,
             detail: [],
@@ -131,11 +132,11 @@ class Applications extends Component {
                                                     
                                                     <MDBCol md='1'>
                                                         <Link 
-                                                            to={'/admin/applications/' + det.id} 
-                                                            style={{color: '#FF7F50'}}
+                                                            to={'/admin/editpost/' + det.id} 
+                                                            style={{color: 's#5DBCD2'}}
                                                         >
                                                             <MDBIcon 
-                                                                icon="angle-double-right" 
+                                                                icon="edit" 
                                                             />
                                                         </Link>
                                                     </MDBCol>
@@ -151,7 +152,7 @@ class Applications extends Component {
                     <MDBRow>
                         <MDBCol>                                   
                             <MDBBtn outline 
-                                className='btn-get-started career-apply mt-4'
+                                className='btn-get-started career-apply applicat mt-4'
                                 onClick={this.handleLogout}
                             >
                                 <MDBIcon icon='power-off' /> Logout
@@ -164,9 +165,10 @@ class Applications extends Component {
                                 style={{color: '#FF7F50'}}
                             >                                  
                                 <MDBBtn outline 
-                                    className='btn-get-started career-apply mt-4'
+                                    className='btn-get-started career-apply applicat mt-4'
+                                    style={{float: 'right', marginRight: '30px'}}
                                 >
-                                    <MDBIcon icon='plus' /> Add New Position
+                                    <MDBIcon icon='plus' /> Add 
                                 </MDBBtn>
                             </Link>
                         </MDBCol>

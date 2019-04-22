@@ -22,7 +22,8 @@ class NewPost extends Component {
             location: 'Naxal, Kathmandu',
             description: '',
             requirements: '',
-            benefits: ''
+            benefits: '',
+            loading: false
         }
     }
 
@@ -34,6 +35,9 @@ class NewPost extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        this.setState({
+            loading: true
+        })
         API.post('/career.json', {
             position_title: this.state.position_title,
             location: this.state.location,
@@ -48,7 +52,8 @@ class NewPost extends Component {
                 position_title: '',
                 description: '',
                 requirements: '',
-                benefits: ''
+                benefits: '',
+                loading: false
             })
             this.props.history.push('/career');
         })
@@ -58,6 +63,7 @@ class NewPost extends Component {
     }
 
     render() {
+        const { loading } = this.state;
         return(
             <div className='bg-brown'>
                 <MDBContainer>
@@ -135,12 +141,23 @@ class NewPost extends Component {
                                     value={this.state.benefits} 
                                     outline />                         
                                 <center>
+                                    {loading 
+                                        ?
+                                        <MDBBtn 
+                                            outline 
+                                            type='submit'
+                                            className='btn-get-started'
+                                        >
+                                            <MDBIcon icon="spinner" spin size="2x" fixed />
+                                        </MDBBtn>
+                                        :
                                     <MDBBtn outline 
                                         className='btn-get-started'
                                         onClick={this.handleSubmit}
                                     >
                                         Add Post
                                     </MDBBtn>
+                                    }
                                 </center>
                             </MDBCol>
                             <MDBCol lg='1' md='2' ></MDBCol>

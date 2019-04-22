@@ -31,14 +31,17 @@ class Apply extends Component {
             address: '',
             photo: null,
             photoUrl: '',
+            photoName: '',
             resume: null,
             resumeUrl: '',
+            resumeName: '',
             coverLetter: '',
             photoProgress: 0,
             resumeProgress: 0,
             loading: true,
             modal: false,
-            position_title: ''
+            position_title: '',
+            loadingSubmit: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -98,7 +101,11 @@ class Apply extends Component {
             uploadTask.on('state_changed', (snapshot) => {
                 // Progress function
                 const photoProgress = Math.round((snapshot.bytesTransferred/snapshot.totalBytes)*100);
-                this.setState({photoProgress});
+                this.setState({
+                    photoProgress, 
+                    loadingSubmit: true,
+                    photoName: photoID
+                });
             },
             // Error function
             (error) => {
@@ -126,7 +133,11 @@ class Apply extends Component {
             uploadTask.on('state_changed', (snapshot) => {
                 // Progress function
                 const resumeProgress = Math.round((snapshot.bytesTransferred/snapshot.totalBytes)*100);
-                this.setState({resumeProgress});
+                this.setState({
+                    resumeProgress, 
+                    loadingSubmit: true,
+                    resumeName: resumeID
+                });
             },
             // Error function
             (error) => {
@@ -150,6 +161,7 @@ class Apply extends Component {
 
         await this.handleImageSubmit();
         await this.handleResumeSubmit();
+        this.setState({loadingSubmit: true})
         
         const postRef = firebase.database().ref('application');
         postRef.push({
@@ -162,13 +174,19 @@ class Apply extends Component {
             resumeUrl: this.state.resumeUrl,
             postKey: this.props.match.params.id,
             postTitle: this.state.position_title,
-            coverLetter: this.state.coverLetter
+            coverLetter: this.state.coverLetter,
+            photoName: this.state.photoName,
+            resumeName: this.state.resumeName
         }).then((data) => {
             console.log('data ', data);
             this.setState({
-                modal: !this.state.modal
+                modal: !this.state.modal,
+                loadingSubmit: false
             })
         }).catch((err) => {
+            this.setState({
+                loadingSubmit: false
+            })
             console.log('error ', err);
         })
     }
@@ -180,7 +198,7 @@ class Apply extends Component {
     }
     
     render() {
-        const { loading } = this.state;
+        const { loading, loadingSubmit } = this.state;
         return(
             <div className='bg-brown'>
             {loading 
@@ -371,6 +389,16 @@ class Apply extends Component {
                             
                             <MDBRow>
                                 <MDBCol>
+                                    {loadingSubmit 
+                                        ?
+                                        <MDBBtn 
+                                            outline 
+                                            type='submit'
+                                            className='btn-get-started career-apply'
+                                        >
+                                            <MDBIcon icon="spinner" spin size="2x" fixed />
+                                        </MDBBtn>
+                                        :
                                     <MDBBtn 
                                         outline 
                                         className='btn-get-started career-apply'
@@ -378,6 +406,7 @@ class Apply extends Component {
                                     >
                                         Submit your application
                                     </MDBBtn>
+                                    }
                                 </MDBCol>
                             </MDBRow>
                         </MDBCard>

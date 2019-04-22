@@ -84,27 +84,33 @@ class emailApplications extends Component{
                 
                 <MDBRow>
                     <MDBCol style={{overflowX: 'auto'}}>
-                      <table>
+                      <table >
                         <tr>
-                          <th><strong>Name</strong></th>
-                          <th><strong>Email</strong></th>
-                          <th><strong>Phone</strong></th>
-                          <th><strong>Address</strong></th>
+                          <th className='table-heading'><strong>Name</strong></th>
+                          <th className='table-heading'><strong>Email</strong></th>
+                          <th className='table-heading'><strong>Phone</strong></th>
+                          <th className='table-heading'><strong>Address</strong></th>
+                          <th className='table-heading'><strong>Action</strong></th>
                         </tr>
                         {
                           this.state.application.map(app => (
                             
                               <tr>
-                                <td>
+                                <td className='table-heading'>
                                   <Link 
                                     to={'/admin/applications/' + this.props.match.params.postId + '/' + app.id} 
                                   >
                                     {app.firstName + ' ' + app.lastName}
                                   </Link>
                                 </td>
-                                <td>{app.email}</td>
-                                <td>{app.phone}</td>
-                                <td>{app.address}</td>
+                                <td className='table-heading'>{app.email}</td>
+                                <td className='table-heading'>{app.phone}</td>
+                                <td className='table-heading'>{app.address}</td>
+                                <td className='table-heading'>
+                                  <Link to={'/admin/applications/' + this.props.match.params.postId + '/' + app.id} >
+                                    <MDBIcon size='2x' style={{color: 'blue'}} icon='eye'  /> 
+                                  </Link>
+                                </td>
                               </tr>
                               
                           ))

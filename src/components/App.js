@@ -6,6 +6,7 @@ import ContentPage from '../components/Content';
 import Login from '../components/Admin/Login';
 import Register from '../components/Admin/Register';
 import NewPost from '../components/Admin/NewPost';
+import EditPost from '../components/Admin/EditPost';
 import ApplicationDetail from '../components/Admin/ApplicationDetail';
 import Applications from '../components/Admin/Applications';
 import PositionApplications from '../components/Admin/PositionApplications';
@@ -63,10 +64,11 @@ class App extends Component {
 
           <div className='body'>
             <Switch>
-              <Route authenticated={this.state.authenticated} exact path='/admin' component={Login} />
+              <Route exact path='/admin' component={() => <Login authenticated={this.state.authenticated} />} />
               <Route path='/register' component={Register} />
               <Route exact path='/career' component={Career} />
               <ProtectedRoute authenticated={this.state.authenticated} path='/admin/newpost' component={NewPost} />
+              <ProtectedRoute authenticated={this.state.authenticated} path='/admin/editpost/:id' component={EditPost} />
               <Route exact path='/career/:id' component={DetailPost} />
               <Route path='/career/:id/apply/' component={Apply} />
               <Route exact path='/' component={ContentPage}/>
